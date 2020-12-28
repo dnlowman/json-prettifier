@@ -1,9 +1,8 @@
 <script lang="ts">
-import type { bubble } from "svelte/internal";
 
 let jsonInput = '';
 let prettified = '';
-let textArea;
+let textArea: HTMLTextAreaElement;
 let isValid = true;
 
 function onSubmit () {
@@ -13,13 +12,13 @@ function onSubmit () {
         const parsed = JSON.parse(jsonInput);
         prettified = JSON.stringify(parsed, null, 4);
         history.pushState(null, null, '');
-    } catch (e: Error) {
+    } catch (e) {
         isValid = false;
         textArea.setCustomValidity("Please insert valid JSON");
     }
 }
 
-window.addEventListener('popstate', (event) => {
+window.addEventListener('popstate', () => {
     prettified = '';
 });
 
